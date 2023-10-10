@@ -1,0 +1,300 @@
+<template>
+	<div class="app-container bg">
+		<!-- <Header></Header> -->
+		<div style="display: flex; justify-content: space-between; font-weight: 600;">
+			<div>海底滩涂增养殖技术经济资源信息共享系统</div>
+			<div>客服电话：18834050175</div>
+		</div>
+
+		<div style="margin: 50px 30px 30px 30px">
+			<el-form ref="form" :model="form" :rules="rules" label-width="200px">
+				<el-row>
+					<el-col :span="12">
+						<el-form-item label="姓名" prop="name">
+							<el-input v-model="form.name" :disabled="true">
+								<template slot="append">
+									<dict-tag :options="dict.type.sys_level" :value="form.userLevel" />
+								</template>
+							</el-input>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="手机号码" prop="phone">
+							<el-input v-model="form.phone" :disabled="true" />
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="12">
+						<el-form-item label="省市区" prop="province">
+							<el-cascader v-model="selectedOptions" :options="options" size="large"
+								@change="handleChange">
+							</el-cascader>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="水域类型" prop="waters">
+							<el-select v-model="form.waters" placeholder="请选择水域类型">
+								<el-option v-for="dict in dict.type.water_type2" :key="dict.value" :label="dict.label"
+									:value="dict.value"></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="12">
+						<el-form-item label="面积" prop="extent">
+							<el-input v-model="form.extent" placeholder="请输入面积" class="input-with-select">
+								<el-select style="width: 100px;" v-model="form.extentDanwei" slot="append"
+									placeholder="请选择">
+									<el-option v-for="dict in dict.type.area_unit" :key="dict.value" :label="dict.label"
+										:value="dict.value"></el-option>
+								</el-select>
+							</el-input>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="增养殖物种类1" prop="breedingSpecies">
+							<el-input v-model="form.breedingSpecies" placeholder="请输入增养殖物种类1" />
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="12">
+						<el-form-item label="增养殖物种类2" prop="fish">
+							<el-select v-model="form.fish" placeholder="请输入增养殖物种类2">
+								<el-option v-for="dict in dict.type.breed_type" :key="dict.value" :label="dict.label"
+									:value="dict.value"></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="年产量" prop="annualOutput">
+							<el-input v-model="form.annualOutput" placeholder="请输入年产量">
+								<el-select style="width: 100px;" v-model="form.annualOutputDanwei" slot="append"
+									placeholder="请选择">
+									<el-option v-for="dict in dict.type.annual_output_unit" :key="dict.value"
+										:label="dict.label" :value="dict.value"></el-option>
+								</el-select>
+							</el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="12">
+						<el-form-item label="销售规格" prop="annualOutputType">
+							<el-input v-model="form.annualOutputType" placeholder="请输入销售规格" />
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="销售平均价格" prop="sellingPrice">
+							<el-input v-model="form.sellingPrice" placeholder="请输入销售平均价格" />
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="12">
+						<el-form-item label="主要产品的比例" prop="annualOutputProportion">
+							<el-input v-model="form.annualOutputProportion" placeholder="请输入主要产品的比例" />
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="年投放量" prop="annualRelease">
+							<el-input v-model="form.annualRelease" placeholder="请输入年投放量" />
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="12">
+						<el-form-item label="投放规格" prop="annualReleaseType">
+							<el-input v-model="form.annualReleaseType" placeholder="请输入投放规格" />
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="苗平均价格" prop="seedlingPrice">
+							<el-input v-model="form.seedlingPrice" placeholder="请输入苗平均价格">
+								<template slot="append">元/kg</template>
+							</el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+			</el-form>
+			<div slot="footer" class="dialog-footer" style="float: right; margin-top: 20px;">
+				<el-button type="primary" @click="submitForm">提交</el-button>
+			</div>
+		</div>
+		<!-- <Foot></Foot> -->
+	</div>
+</template>
+
+<script>
+	import Foot from '@/components/Foot'
+	import Header from '@/components/Header'
+	import {
+		regionData,
+		CodeToText,
+		TextToCode
+	} from 'element-china-area-data';
+	import {
+		addHaidituceng
+	} from "@/api/system/haidituceng";
+	export default {
+		name: "skgxxt",
+		components: {
+			Foot,
+			Header
+		},
+		dicts: ['breed_type', 'area_unit', 'annual_output_unit', 'water_type2'],
+		data() {
+			return {
+				type: '',
+				options: regionData,
+				selectedOptions: null,
+				// 表单参数
+				form: {
+					extentDanwei: '1',
+					annualOutputDanwei: '1',
+				},
+				// 表单校验
+				rules: {
+					waters: [{
+						required: true,
+						message: "水域类型不能为空",
+						trigger: "change"
+					}],
+					extent: [{
+						required: true,
+						message: "面积不能为空",
+						trigger: "blur"
+					}],
+					breedingSpecies: [{
+						required: true,
+						message: "增养殖物种类1不能为空",
+						trigger: "blur"
+					}],
+					fish: [{
+						required: true,
+						message: "增养殖物种类2不能为空",
+						trigger: "change"
+					}],
+					annualOutput: [{
+						required: true,
+						message: "年产量不能为空",
+						trigger: "blur"
+					}],
+					annualOutputType: [{
+						required: true,
+						message: "销售规格不能为空",
+						trigger: "blur"
+					}],
+					sellingPrice: [{
+						required: true,
+						message: "销售平均价格不能为空",
+						trigger: "blur"
+					}],
+					annualOutputProportion: [{
+						required: true,
+						message: "主要产品的比例不能为空",
+						trigger: "blur"
+					}],
+					annualRelease: [{
+						required: true,
+						message: "年投放量不能为空",
+						trigger: "blur"
+					}],
+					annualReleaseType: [{
+						required: true,
+						message: "投放规格不能为空",
+						trigger: "blur"
+					}],
+					seedlingPrice: [{
+						required: true,
+						message: "苗平均价格不能为空",
+						trigger: "blur"
+					}],
+				}
+			}
+		},
+		created() {
+			// this.type = this.$route.query.type
+			//获取用户信息填充到页面上去
+			let user = this.$store.getters.user
+			this.form.userId = user.userId;
+			this.form.name = user.nickName;
+			this.form.phone = user.phonenumber;
+			this.form.userLevel = user.userLevel;
+		},
+		methods: {
+			//省市区级联
+			handleChange() {
+				var self = this;
+				var province = self.selectedOptions[0];
+				var city = self.selectedOptions[1];
+				var area = self.selectedOptions[2];
+				// CodeToText属性是区域码，属性值是汉字 CodeToText['110000']输出北京市
+				self.form.province = CodeToText[province];
+				self.form.city = CodeToText[city];
+				self.form.area = CodeToText[area];
+				// console.log("选择的省市：", self.form.province, self.form.city ,self.form.area);
+				// console.log(value)
+			},
+			// 表单重置
+			reset() {
+				this.selectedOptions = null
+				this.form = {
+					id: null,
+					name: this.form.name,
+					userLevel: this.form.userLevel,
+					phone: this.form.phone,
+					province: null,
+					city: null,
+					area: null,
+					waters: null,
+					extent: null,
+					extentDanwei: "1",
+					breedingSpecies: null,
+					fish: null,
+					annualOutput: null,
+					annualOutputDanwei: "1",
+					annualOutputType: null,
+					sellingPrice: null,
+					annualOutputProportion: null,
+					annualRelease: null,
+					annualReleaseType: null,
+					seedlingPrice: null,
+					annualReleaseProportion: null,
+					createBy: null,
+					createTime: null,
+					updateBy: null,
+					updateTime: null,
+					remark: null,
+					type: null,
+					userId: this.form.userId
+				};
+				this.resetForm("form");
+			},
+			/** 提交按钮 */
+			submitForm() {
+				// this.form.type = this.$route.query.type
+				this.$refs["form"].validate(valid => {
+					if (valid) {
+						if (this.selectedOptions == null) {
+							alert("请选择省市区")
+						} else {
+							addHaidituceng(this.form).then(response => {
+								this.$modal.msgSuccess("新增成功");
+								this.reset();
+							});
+						}
+
+					}
+				});
+			},
+		}
+
+	}
+</script>
+
+<style scoped>
+
+</style>
