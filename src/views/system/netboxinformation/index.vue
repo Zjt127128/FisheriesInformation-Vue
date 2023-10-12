@@ -1,98 +1,18 @@
 <template>
   <div class="app-container" v-if="user.admin && user.userId == 1 || isShow">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label=" 水体规模" prop="waterScale">
+      <el-form-item label="苗种规格" prop="seedlingSpecifications">
         <el-input
-          v-model="queryParams.waterScale"
-          placeholder="请输入水体规模"
+          v-model="queryParams.seedlingSpecifications"
+          placeholder="请输入苗种规格"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <!--      <el-form-item label="苗种规格" prop="seedlingSpecifications">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.seedlingSpecifications"-->
-      <!--          placeholder="请输入苗种规格"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="苗种价格" prop="seedlingPrice">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.seedlingPrice"-->
-      <!--          placeholder="请输入苗种价格"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="年投放量" prop="annualStockingVolume">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.annualStockingVolume"-->
-      <!--          placeholder="请输入年投放量"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="销售规格" prop="salesSpecifications">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.salesSpecifications"-->
-      <!--          placeholder="请输入销售规格"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="销售平均价格" prop="averagePricePerSale">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.averagePricePerSale"-->
-      <!--          placeholder="请输入销售平均价格"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="年产量" prop="annualProductionVolume">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.annualProductionVolume"-->
-      <!--          placeholder="请输入年产量"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="地理分区" prop="geographical">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.geographical"-->
-      <!--          placeholder="请输入地理分区"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
       <el-form-item label="养殖方式" prop="cultureMethod">
         <el-input
           v-model="queryParams.cultureMethod"
           placeholder="请输入养殖方式"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <!--      <el-form-item label="养殖阶段" prop="cultureStage">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.cultureStage"-->
-      <!--          placeholder="请输入养殖阶段"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="产业成熟度" prop="industrialMaturity">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.industrialMaturity"-->
-      <!--          placeholder="请输入产业成熟度"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <el-form-item label="省市区" prop="address">
-        <el-input
-          v-model="queryParams.address"
-          placeholder="请输入省市区"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -168,9 +88,9 @@
     <el-table v-loading="loading" :data="informationList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column label="唯一标识符" align="center" prop="id"/>
-      <el-table-column label="水域类型" align="center" prop="waterType"/>
-      <el-table-column label="水体规模" align="center" prop="waterScale"/>
-      <el-table-column label="水体规模类型" align="center" prop="waterScaleType"/>
+      <el-table-column label="水体类型" align="center" prop="waterType"/>
+      <el-table-column label="网箱面积" align="center" prop="netboxArea"/>
+      <el-table-column label="网箱规格" align="center" prop="netboxSpecification"/>
       <el-table-column label="苗种规格" align="center" prop="seedlingSpecifications"/>
       <el-table-column label="苗种价格" align="center" prop="seedlingPrice"/>
       <el-table-column label="年投放量" align="center" prop="annualStockingVolume"/>
@@ -180,7 +100,6 @@
       <el-table-column label="地理分区" align="center" prop="geographical"/>
       <el-table-column label="养殖方式" align="center" prop="cultureMethod"/>
       <el-table-column label="养殖阶段" align="center" prop="cultureStage"/>
-      <el-table-column label="产业成熟度" align="center" prop="industrialMaturity"/>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width"
                        v-if="user.admin && user.userId == 1"
       >
@@ -190,7 +109,6 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:information:edit']"
           >修改
           </el-button>
           <el-button
@@ -198,7 +116,6 @@
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['system:information:remove']"
           >删除
           </el-button>
         </template>
@@ -247,8 +164,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="水域类型:" prop="waterType">
-              <el-select v-model="form.waterType" placeholder="请选择水域类型" style="width: 150px">
+            <el-form-item label="水体类型:" prop="waterType">
+              <el-select v-model="form.waterType" placeholder="请选择水体类型" style="width: 150px">
                 <el-option
                   v-for="item in optionsSYLX"
                   :key="item.value"
@@ -260,23 +177,15 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="水域面积:" prop="waterArea">
-              <el-input v-model="form.waterArea" placeholder="请输入水域面积"/>
+            <el-form-item label="网箱面积:" prop="netboxArea">
+              <el-input v-model="form.netboxArea" placeholder="请输入网箱面积">
+                <template slot="append">平方米/亩</template>
+              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="水体规模:" prop="waterScale">
-              <el-input v-model="form.waterScale" placeholder="请输入水体规模" style="width: 140px">
-              </el-input>
-              <el-select v-model="form.waterScaleType" placeholder="请选择" style="width: 100px">
-                <el-option
-                  v-for="item in optionsGM"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
+            <el-form-item label="网箱规格:" prop="netboxSpecification">
+              <el-input v-model="form.netboxSpecification" placeholder="请输入网箱规格"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -290,7 +199,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="产业成熟度:" prop="industrialMaturity">
+            <el-form-item label="产业成熟度:" prop="cultureStage">
               <el-input v-model="form.industrialMaturity" placeholder="请输入产业成熟度"/>
             </el-form-item>
           </el-col>
@@ -435,8 +344,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="水域类型:" prop="waterType">
-              <el-select v-model="form.waterType" placeholder="请选择水域类型" style="width: 150px">
+            <el-form-item label="水体类型:" prop="waterType">
+              <el-select v-model="form.waterType" placeholder="请选择水体类型" style="width: 150px">
                 <el-option
                   v-for="item in optionsSYLX"
                   :key="item.value"
@@ -448,23 +357,15 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="水域面积:" prop="waterArea">
-              <el-input v-model="form.waterArea" placeholder="请输入水域面积"/>
+            <el-form-item label="网箱面积:" prop="netboxArea">
+              <el-input v-model="form.netboxArea" placeholder="请输入网箱面积">
+                <template slot="append">平方米/亩</template>
+              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="水体规模:" prop="waterScale">
-              <el-input v-model="form.waterScale" placeholder="请输入水体规模" style="width: 140px">
-              </el-input>
-              <el-select v-model="form.waterScaleType" placeholder="请选择" style="width: 100px">
-                <el-option
-                  v-for="item in optionsGM"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
+            <el-form-item label="网箱规格:" prop="netboxSpecification">
+              <el-input v-model="form.netboxSpecification" placeholder="请输入网箱规格"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -478,7 +379,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="产业成熟度:" prop="industrialMaturity">
+            <el-form-item label="产业成熟度:" prop="cultureStage">
               <el-input v-model="form.industrialMaturity" placeholder="请输入产业成熟度"/>
             </el-form-item>
           </el-col>
@@ -572,7 +473,7 @@ import {
   delInformation,
   addInformation,
   updateInformation
-} from '@/api/system/information'
+} from '@/api/system/netboxinformation'
 import { getUserProfile } from '@/api/system/user'
 
 export default {
@@ -655,7 +556,7 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 工厂化育苗、养殖技术经济资源信息表格数据
+      // 海底滩涂增养殖技术经济资源信息共享系统信息
       informationList: [],
       // 弹出层标题
       title: '',
@@ -695,7 +596,6 @@ export default {
   methods: {
     toHouse() {
       this.isShow = false
-      // window.location.reload()
     },
     changeIsShow() {
       this.isShow = true
@@ -711,7 +611,6 @@ export default {
         }
       })
     },
-    /** 查询工厂化育苗、养殖技术经济资源信息列表 */
     getList() {
       this.loading = true
       listInformation(this.queryParams).then(response => {
@@ -769,7 +668,7 @@ export default {
       if (this.isDisabled) {
         this.isDisabled = false
       }
-      this.title = '添加工厂化育苗、养殖技术经济资源信息'
+      this.title = '添加网箱育苗、养殖技术经济资源信息共享系统信息'
     },
     /** 查看按钮操作 */
     handleUpdateToShow(row) {
@@ -778,7 +677,7 @@ export default {
       getInformation(id).then(response => {
         this.form = response.data
         this.open = true
-        this.title = '查看工厂化育苗、养殖技术经济资源信息'
+        this.title = '查看网箱育苗、养殖技术经济资源信息共享系统信息'
         this.isDisabled = true
       })
     },
@@ -789,7 +688,7 @@ export default {
       getInformation(id).then(response => {
         this.form = response.data
         this.open = true
-        this.title = '修改工厂化育苗、养殖技术经济资源信息'
+        this.title = '修改网箱育苗、养殖技术经济资源信息共享系统信息'
       })
     },
     /** 提交按钮 */
@@ -815,7 +714,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids
-      this.$modal.confirm('是否确认删除工厂化育苗、养殖技术经济资源信息编号为"' + ids + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除网箱育苗、养殖技术经济资源信息共享系统信息编号为"' + ids + '"的数据项？').then(function() {
         return delInformation(ids)
       }).then(() => {
         this.getList()

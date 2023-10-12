@@ -1,70 +1,14 @@
 <template>
   <div class="app-container" v-if="user.admin && user.userId == 1 || isShow">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-<!--      <el-form-item label=" 水体规模" prop="waterScale">-->
-<!--        <el-input-->
-<!--          v-model="queryParams.waterScale"-->
-<!--          placeholder="请输入水体规模"-->
-<!--          clearable-->
-<!--          @keyup.enter.native="handleQuery"-->
-<!--        />-->
-<!--      </el-form-item>-->
-            <el-form-item label="苗种规格" prop="seedlingSpecifications">
-              <el-input
-                v-model="queryParams.seedlingSpecifications"
-                placeholder="请输入苗种规格"
-                clearable
-                @keyup.enter.native="handleQuery"
-              />
-            </el-form-item>
-      <!--      <el-form-item label="苗种价格" prop="seedlingPrice">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.seedlingPrice"-->
-      <!--          placeholder="请输入苗种价格"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="年投放量" prop="annualStockingVolume">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.annualStockingVolume"-->
-      <!--          placeholder="请输入年投放量"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="销售规格" prop="salesSpecifications">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.salesSpecifications"-->
-      <!--          placeholder="请输入销售规格"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="销售平均价格" prop="averagePricePerSale">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.averagePricePerSale"-->
-      <!--          placeholder="请输入销售平均价格"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="年产量" prop="annualProductionVolume">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.annualProductionVolume"-->
-      <!--          placeholder="请输入年产量"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="地理分区" prop="geographical">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.geographical"-->
-      <!--          placeholder="请输入地理分区"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
+      <el-form-item label="苗种规格" prop="seedlingSpecifications">
+        <el-input
+          v-model="queryParams.seedlingSpecifications"
+          placeholder="请输入苗种规格"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="养殖方式" prop="cultureMethod">
         <el-input
           v-model="queryParams.cultureMethod"
@@ -73,22 +17,6 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <!--      <el-form-item label="养殖阶段" prop="cultureStage">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.cultureStage"-->
-      <!--          placeholder="请输入养殖阶段"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
-      <!--      <el-form-item label="产业成熟度" prop="industrialMaturity">-->
-      <!--        <el-input-->
-      <!--          v-model="queryParams.industrialMaturity"-->
-      <!--          placeholder="请输入产业成熟度"-->
-      <!--          clearable-->
-      <!--          @keyup.enter.native="handleQuery"-->
-      <!--        />-->
-      <!--      </el-form-item>-->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -220,7 +148,7 @@
         <el-row :gutter="24">
           <el-col :span="12">
             <el-form-item label="账号类型:" prop="selectUserType">
-              <el-select v-model="selectUserType" placeholder="请选择账号类型" disabled  style="width: 150px">
+              <el-select v-model="selectUserType" placeholder="请选择账号类型" disabled style="width: 150px">
                 <el-option
                   v-for="item in userType"
                   :key="item.value"
@@ -388,7 +316,7 @@
         <el-row :gutter="24">
           <el-col :span="12">
             <el-form-item label="账号类型:" prop="selectUserType">
-              <el-select v-model="selectUserType" placeholder="请选择账号类型" disabled  style="width: 150px">
+              <el-select v-model="selectUserType" placeholder="请选择账号类型" disabled style="width: 150px">
                 <el-option
                   v-for="item in userType"
                   :key="item.value"
@@ -419,7 +347,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="滩涂面积:" prop="mudflatArea">
-              <el-input v-model="form.mudflatArea" placeholder="请输入水域面积"/>
+              <el-input v-model="form.mudflatArea" placeholder="请输入滩涂面积"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -529,22 +457,22 @@ export default {
   name: 'Information',
   data() {
     return {
-      isDisabled:false,
+      isDisabled: false,
       optionsSeedlingSpecificationsUnit: [{
         value: '1',
         label: 'g/kg'
       }],
       optionsSeedlingPriceUnit: [{
         value: '1',
-        label: "元/尾"
-      },{
+        label: '元/尾'
+      }, {
         value: '2',
         label: '元/kg'
       }],
       optionsAnnualStockingVolumeUnit: [{
         value: '1',
         label: '尾'
-      },{
+      }, {
         value: '2',
         label: 'kg'
       }],
@@ -555,18 +483,18 @@ export default {
       optionsAveragePricePerSaleUnit: [{
         value: '1',
         label: '元/尾'
-      },{
+      }, {
         value: '2',
         label: '元/kg'
       }],
       optionsAnnualProductionVolumeUnit: [{
         value: '1',
         label: '尾'
-      },{
+      }, {
         value: '2',
         label: 'kg'
       }],
-      selectUserType:"",
+      selectUserType: '',
       userType: [{
         value: '2',
         label: '普通用户'
@@ -645,7 +573,6 @@ export default {
   methods: {
     toHouse() {
       this.isShow = false
-      // window.location.reload()
     },
     changeIsShow() {
       this.isShow = true
@@ -654,14 +581,13 @@ export default {
       getUserProfile().then(response => {
         this.user = response.data
         console.log(this.user)
-        if (this.user.admin && this.user.userId == 1){
-          this.selectUserType = "1"
-        }else {
-          this.selectUserType = "2"
+        if (this.user.admin && this.user.userId == 1) {
+          this.selectUserType = '1'
+        } else {
+          this.selectUserType = '2'
         }
       })
     },
-    /** 查询工厂化育苗、养殖技术经济资源信息列表 */
     getList() {
       this.loading = true
       listInformation(this.queryParams).then(response => {
@@ -716,7 +642,7 @@ export default {
     handleAdd() {
       this.reset()
       this.open = true
-      if (this.isDisabled){
+      if (this.isDisabled) {
         this.isDisabled = false
       }
       this.title = '添加海底滩涂增养殖技术经济资源信息共享系统信息'

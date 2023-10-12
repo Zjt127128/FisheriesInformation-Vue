@@ -14,14 +14,14 @@
       </el-carousel>
 			<el-row type="flex" class="row-bg" justify="space-around" style="margin-top: 50px">
 				<el-col :span="6">
-					<router-link :to="'/skdmjgl'">
+					<router-link :to="'/reservoirinformation'">
 						<div class="link_type">
 							水库等大水面渔业技术经济资源信息共享系统
 						</div>
 					</router-link>
 				</el-col>
 				<el-col :span="6">
-					<router-link :to="'/integratedaquaculturetable'">
+					<router-link :to="'/mudflatinformation'">
 						<div class="link_type">
 							海底滩涂增养殖技术经济资源信息共享系统
 						</div>
@@ -37,21 +37,21 @@
 			</el-row>
 			<el-row type="flex" class="row-bg" justify="space-around">
 				<el-col :span="6">
-					<router-link :to="'/shouye/wangxiangyumiao'">
+					<router-link :to="'/netboxinformation'">
 						<div class="link_type">
 							网箱育苗、养殖技术经济资源信息共享系统
 						</div>
 					</router-link>
 				</el-col>
 				<el-col :span="6">
-					<router-link :to="'/shouye/chitangyumiao'">
+					<router-link :to="'/chitangyumiao'">
 						<div class="link_type">
 							池塘育苗、养殖技术经济资源信息共享系统
 						</div>
 					</router-link>
 				</el-col>
 				<el-col :span="6">
-					<router-link :to="'/shouye/tezhongyumiao'">
+					<router-link :to="'/tezhongyumiao'">
 						<div class="link_type">
 							特种育苗、养殖技术经济资源信息共享系统
 						</div>
