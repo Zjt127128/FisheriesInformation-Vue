@@ -90,7 +90,7 @@
       <el-table-column label="唯一标识符" align="center" prop="id"/>
       <el-table-column label="水体类型" align="center" prop="waterType"/>
       <el-table-column label="水库名称" align="center" prop="reservoirName"/>
-      <el-table-column label="水域面积" align="center" prop="mudflatArea"/>
+      <el-table-column label="水域面积" align="center" prop="waterArea"/>
       <el-table-column label="苗种规格" align="center" prop="seedlingSpecifications"/>
       <el-table-column label="苗种价格" align="center" prop="seedlingPrice"/>
       <el-table-column label="年投放量" align="center" prop="annualStockingVolume"/>
